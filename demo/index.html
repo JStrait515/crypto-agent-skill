@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Market Agent Skill</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Agent Skill</div>
+            <h1>Crypto Market</h1>
+            <p class="subtitle">Give any AI agent real-time cryptocurrency market intelligence</p>
+            <div class="links">
+                <a href="https://github.com/jake2/crypto-agent-skill" class="btn btn-primary">View on GitHub</a>
+                <a href="https://agentskills.io" class="btn btn-secondary">Agent Skills Spec</a>
+            </div>
+        </header>
+
+        <section class="what-it-does">
+            <h2>What It Does</h2>
+            <p>An open-source <a href="https://agentskills.io">Agent Skill</a> that gives AI coding assistants the ability to fetch live crypto data, analyze trends, and compare coins — all outputting structured JSON that agents can parse directly.</p>
+            <div class="compatible">
+                <span class="label">Compatible with:</span>
+                <span class="tag">Claude Code</span>
+                <span class="tag">Cursor</span>
+                <span class="tag">VS Code Copilot</span>
+                <span class="tag">Gemini CLI</span>
+                <span class="tag">Codex</span>
+                <span class="tag">20+ more</span>
+            </div>
+        </section>
+
+        <section class="capabilities">
+            <h2>Capabilities</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">💰</div>
+                    <h3>Live Prices</h3>
+                    <p>Fetch real-time prices for any cryptocurrency with market cap, volume, and 24h change data.</p>
+                    <code>python scripts/fetch_prices.py --coins bitcoin,ethereum</code>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Market Overview</h3>
+                    <p>Get a snapshot of the top coins by market cap with global market statistics.</p>
+                    <code>python scripts/market_overview.py --top 10 --global-stats</code>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📈</div>
+                    <h3>Trend Analysis</h3>
+                    <p>Historical price data with built-in trend detection, volatility scoring, and direction analysis.</p>
+                    <code>python scripts/price_history.py --coin bitcoin --days 30 --analysis</code>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚖️</div>
+                    <h3>Coin Comparison</h3>
+                    <p>Compare multiple coins side-by-side across price, volume, market cap, and performance metrics.</p>
+                    <code>python scripts/coin_compare.py --coins bitcoin,ethereum,solana</code>
+                </div>
+            </div>
+        </section>
+
+        <section class="install">
+            <h2>Installation</h2>
+            <div class="install-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Clone the skill</h3>
+                        <pre><code>git clone https://github.com/jake2/crypto-agent-skill.git</code></pre>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Install dependencies</h3>
+                        <pre><code>pip install -r crypto-market/scripts/requirements.txt</code></pre>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Add to your agent</h3>
+                        <p>Copy the <code>crypto-market/</code> folder into your agent's skills directory. The agent will automatically discover it via the <code>SKILL.md</code> file.</p>
+                        <p><strong>Claude Code:</strong> Place in <code>~/.claude/skills/</code></p>
+                        <p><strong>Cursor:</strong> Place in <code>.cursor/skills/</code></p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Start asking about crypto</h3>
+                        <pre><code>"What's the current price of Bitcoin?"
+"Give me a market overview of the top 10 coins"
+"How has Ethereum performed over the last 30 days?"
+"Compare BTC, ETH, and SOL"</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="example-output">
+            <h2>Example Output</h2>
+            <pre><code>{
+  "bitcoin": {
+    "price": 98234.56,
+    "market_cap": 1930000000000,
+    "volume_24h": 45000000000,
+    "change_24h_pct": 2.34
+  },
+  "ethereum": {
+    "price": 3421.78,
+    "market_cap": 411000000000,
+    "volume_24h": 18000000000,
+    "change_24h_pct": 1.87
+  }
+}</code></pre>
+        </section>
+
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="flow">
+                <div class="flow-step">
+                    <strong>1. Discovery</strong>
+                    <p>Agent reads SKILL.md metadata and knows when to activate</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <strong>2. Activation</strong>
+                    <p>When user asks about crypto, agent loads full instructions</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <strong>3. Execution</strong>
+                    <p>Agent runs the right script and returns structured JSON</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built for the <a href="https://advisoryhour.substack.com/p/spring-into-ai-competition-rules">Spring into AI Competition</a> — Week 2: Tooling for AI Tools</p>
+            <p>Powered by <a href="https://www.coingecko.com/en/api">CoinGecko API</a> · <a href="https://agentskills.io">Agent Skills</a> format</p>
+        </footer>
+    </div>
+</body>
+</html>
