@@ -39,7 +39,7 @@ This project follows the open [Agent Skills](https://agentskills.io) specificati
 ### Install
 
 ```bash
-git clone https://github.com/jake2/crypto-agent-skill.git
+git clone https://github.com/JStrait515/crypto-agent-skill.git
 cd crypto-agent-skill
 pip install -r crypto-market/scripts/requirements.txt
 ```
