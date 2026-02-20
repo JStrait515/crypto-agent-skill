@@ -15,7 +15,7 @@ def api_get(url, params):
     for attempt in range(3):
         resp = requests.get(url, params=params, headers=HEADERS, timeout=15)
         if resp.status_code == 429:
-            time.sleep(5 * (attempt + 1))
+            time.sleep(15 * (attempt + 1))
             continue
         resp.raise_for_status()
         return resp
