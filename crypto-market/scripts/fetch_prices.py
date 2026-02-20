@@ -4,16 +4,28 @@
 import argparse
 import json
 import sys
+import time
 import requests
 
 API_BASE = "https://api.coingecko.com/api/v3"
 HEADERS = {"User-Agent": "crypto-market-agent-skill/1.0"}
 
 
+def api_get(url, params):
+    """GET with automatic retry on rate limit (429)."""
+    for attempt in range(3):
+        resp = requests.get(url, params=params, headers=HEADERS, timeout=15)
+        if resp.status_code == 429:
+            time.sleep(5 * (attempt + 1))
+            continue
+        resp.raise_for_status()
+        return resp
+    resp.raise_for_status()
+
+
 def search_coins(query):
     """Search for coin IDs matching a query string."""
-    resp = requests.get(f"{API_BASE}/search", params={"query": query}, headers=HEADERS, timeout=15)
-    resp.raise_for_status()
+    resp = api_get(f"{API_BASE}/search", {"query": query})
     data = resp.json()
     results = []
     for coin in data.get("coins", [])[:15]:
@@ -37,8 +49,7 @@ def fetch_prices(coin_ids, currency="usd", include_24h_change=False):
     if include_24h_change:
         params["include_24hr_change"] = "true"
 
-    resp = requests.get(f"{API_BASE}/simple/price", params=params, headers=HEADERS, timeout=15)
-    resp.raise_for_status()
+    resp = api_get(f"{API_BASE}/simple/price", params)
     raw = resp.json()
 
     result = {}

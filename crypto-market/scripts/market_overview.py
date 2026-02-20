@@ -3,10 +3,23 @@
 
 import argparse
 import json
+import time
 import requests
 
 API_BASE = "https://api.coingecko.com/api/v3"
 HEADERS = {"User-Agent": "crypto-market-agent-skill/1.0"}
+
+
+def api_get(url, params):
+    """GET with automatic retry on rate limit (429)."""
+    for attempt in range(3):
+        resp = requests.get(url, params=params, headers=HEADERS, timeout=15)
+        if resp.status_code == 429:
+            time.sleep(5 * (attempt + 1))
+            continue
+        resp.raise_for_status()
+        return resp
+    resp.raise_for_status()
 
 
 def get_market_overview(top_n=10, currency="usd", sort_by="market_cap_desc"):
@@ -19,8 +32,7 @@ def get_market_overview(top_n=10, currency="usd", sort_by="market_cap_desc"):
         "sparkline": "false",
         "price_change_percentage": "1h,24h,7d",
     }
-    resp = requests.get(f"{API_BASE}/coins/markets", params=params, headers=HEADERS, timeout=15)
-    resp.raise_for_status()
+    resp = api_get(f"{API_BASE}/coins/markets", params)
     raw = resp.json()
 
     results = []
@@ -46,8 +58,7 @@ def get_market_overview(top_n=10, currency="usd", sort_by="market_cap_desc"):
 
 def get_global_stats():
     """Fetch global crypto market statistics."""
-    resp = requests.get(f"{API_BASE}/global", headers=HEADERS, timeout=15)
-    resp.raise_for_status()
+    resp = api_get(f"{API_BASE}/global", {})
     data = resp.json()["data"]
     return {
         "total_market_cap_usd": data.get("total_market_cap", {}).get("usd"),
